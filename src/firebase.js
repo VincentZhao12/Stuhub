@@ -23,8 +23,13 @@ export const createNewClass = () => {
 };
 
 export const getVideo = (classId, video) => {
-  db.collection("classes").doc(classId);
-  return getDoc().data();
+  const getDoc = async () => {
+    const ref = db.collection("classes").doc(classId).collection("lectures").doc(video);
+    const doc =  await ref.get();
+    console.log(doc.data());
+    return doc;
+  }
+  return getDoc();
 };
 
 export const addVideo = async (file, classId, title, description) => {

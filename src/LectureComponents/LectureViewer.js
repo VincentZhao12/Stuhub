@@ -11,6 +11,7 @@ function LectureViewer({ match }) {
 
   useEffect(() => {
     const video = getVideo(classroom, match.params.videoName);
+    console.log(video);
     setVideoSrc(firebase.storage().ref(classroom + "/" + video.data.src));
     setVideoTitle(video.data.title);
     setVideoDesc(video.data.description);
