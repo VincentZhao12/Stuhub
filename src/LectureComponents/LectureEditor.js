@@ -8,12 +8,12 @@ function LectureEditor({ filematch }) {
   const [file, setFile] = useState(null);
 
   const handleSubmit = (event) => {
+    console.log("class code", classroom);
     event.preventDefault();
     const storageRef = firebase.storage().ref(classroom + "/" + file.name);
     storageRef.put(file).then(() => {
       console.log("Uploaded a file");
     });
-    console.log(storageRef.getDownloadURL());
     addVideo(
       file.name,
       classroom,

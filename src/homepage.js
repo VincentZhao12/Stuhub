@@ -1,22 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useClassCode } from "./stores";
 import Alert from "react-bootstrap/Alert";
-import { Button, Container, Form } from "react-bootstrap";
+import MaterialViewer from "./MaterialComponents/MaterialViewer"
+import { Button, Container } from "react-bootstrap";
+import { auth, getClassesFromUser, getVideos, getMaterials } from "./firebase";
+import { Link } from  "react-router-dom";
 
 function Homepage() {
   const classroom = useClassCode((state) => state.classCode);
+  const [studentClasses, setStudentClasses] = useState([])
+  const [videos, setVideos] = useState([]);
+  const [materials, setMaterials] = useState([]);
+  useEffect(() => {
+    getClassesFromUser().then((classes) => {
+      setStudentClasses(classes);
+    });
+    getVideos(classroom).then((lectures) => {
+      setVideos(lectures);
+    });
+    getMaterials(classroom).then((materials)=> {
+      setMaterials(materials);
+    });
+  })
 
-  if (classroom === "") {
+  if (auth.currentUser === null) {
     return (
       <Container>
         <Alert variant="danger">
-          <Alert.Heading>Please enter a class code</Alert.Heading>
-          <p>Click the plus in the top right and join a class.</p>
+          <Alert.Heading><h4 style={{textAlign: "center"}}>Login to get started</h4></Alert.Heading>
         </Alert>
       </Container>
     );
   } else {
-    return <div />;
+    return (
+      <Container>
+        <ul>
+          {studentClasses.map(_class => {
+            <li key={_class}>{_class}</li>
+          })}
+          
+        </ul>
+        <MaterialViewer materials={materials}/>
+      </Container>
+    );
   }
 }
 

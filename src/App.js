@@ -1,14 +1,16 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import React, { useState } from "react";
+import React from "react";
 import MaterialViewer from "./MaterialComponents/MaterialViewer";
-import AddClass from "./Classroom/AddClass";
+import Classes from "./Classroom/Classes";
 import Homepage from "./homepage";
-import { createNewClass } from "./firebase";
-import { Navbar, Form, Dropdown, DropdownButton } from "react-bootstrap";
+import { Navbar, Form, Dropdown, DropdownButton, Button } from "react-bootstrap";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import LectureEditor from "./LectureComponents/LectureEditor";
 import LectureViewer from "./LectureComponents/LectureViewer";
+import Signup from "./User/Signup";
+import Login from "./User/Login";
+import MaterialEditor from "./MaterialComponents/MaterialEditor";
 
 // materials, lecture viewer, formatting
 
@@ -26,60 +28,71 @@ const Toggle = React.forwardRef(({ children, onClick }, ref) => (
 ));
 
 function App() {
-  const [showAddClass, setShowAddClass] = useState(false);
-
+  
   return (
-    <Router>
+    <>
+      <Router>
       <div className="App">
         <header className="App-header">
           {/* <Homepage /> */}
 
           <Navbar className="nav-bar" varient="light">
             <Navbar.Brand href="/">
-              <h1 class="nav-text">Stuhub</h1>
+              <h1 className="nav-text">Stuhub</h1>
             </Navbar.Brand>
 
             {/* Add hrefs for dropdown items */}
             <Form inline>
+              {/* <h2 className="nav-text" variant="none"></h2> */}
+              <Link to="/login"><h4 className="nav-text nav-item" >Login</h4></Link>
+
               <Dropdown alignRight id="dropdown-button-drop-left">
                 <Dropdown.Toggle as={Toggle}>
-                  <h1 className="nav-text">+</h1>
+                  <h2 className="nav-text nav-item">+</h2>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item
-                    href="/add-class"
-                    onClick={() => setShowAddClass(!showAddClass)}
-                  >
-                    Add Class
+                  <Dropdown.Item as={Link} to="/classes">
+                    <Link className="dropdown-item" to="/classes">
+                      Classes
+                    </Link>
                   </Dropdown.Item>
-                  <Dropdown.Item href="#">Create Class</Dropdown.Item>
-                  <Dropdown.Item href="/materials">Materials</Dropdown.Item>
-                  <Dropdown.Item href="/lecture-upload">
-                    Upload Lecture
+                  <Dropdown.Item >
+                     <Link className="dropdown-item" to="/material-upload">
+                      Add Materials
+                    </Link>
                   </Dropdown.Item>
-                  <Dropdown.Item href="/lecture-view-:video">
-                    View Lecture
+                  <Dropdown.Item>
+                    <Link className="dropdown-item" to="/lecture-upload">
+                      Upload Lecture
+                    </Link>
+                  </Dropdown.Item>
+                  <Dropdown.Item >
+                    <Link className="dropdown-item" to="/lecture-view-:video">
+                      View Lecture
+                    </Link>
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Form>
-
-            {showAddClass && <AddClass />}
           </Navbar>
         </header>
-        <button onClick={() => console.log(createNewClass())}>test create new class</button>
-
-        {/* <MaterialViewer /> */}
       </div>
-      <Link to="/lecture-view-_Retro53_preview.mp4">test lecture viewer</Link>
-      <Route exact path="/" component={Homepage} />
-      <Route exact path="/add-class" component={AddClass} />
-      <Route exact path="/lecture-upload" component={LectureEditor} />
-      <Route exact path="/lecture-view-:video" component={LectureViewer} />
-      <Route path="/materials" component={MaterialViewer} />
+
+      <div className="content">
+        {/* Router stuff */}
+        <Route exact path="/" component={Homepage} />
+        <Route exact path="/lecture-upload" component={LectureEditor} />
+        <Route exact path="/lecture-view-:video" component={LectureViewer} />
+        <Route exact path="/classes" component={Classes} />
+        <Route path="/signup" component={Signup} />
+        <Route path="/login" component={Login} />
+        <Route exact path='/material-upload' component={MaterialEditor}/>
+        
+      </div>
 
       {/* <Route path="/lectures" component={component} /> */}
     </Router>
+    </>
   );
 }
 

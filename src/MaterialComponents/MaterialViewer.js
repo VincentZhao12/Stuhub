@@ -1,15 +1,9 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
 
-const Materials = [
-  ["1", "Math HW", "1/23/2021", "http://url"],
-  ["2", "Science HW", "1/23/2021", "http://url"],
-  ["3", "History HW", "1/23/2021", "http://url"],
-];
-
-function MaterialViewer() {
+function MaterialViewer(materials) {
   const downloadFile = (index) => {
-    
+    // download file
   };
 
   const renderMaterial = (material, index) => {
@@ -24,16 +18,20 @@ function MaterialViewer() {
 
   return (
     <div>
-      <h2>Materials</h2>
+      <h2 className="header">Materials</h2>
 
-      <Table striped hover responsive>
+      {materials.length > 0 ? 
+      (<Table striped hover responsive>
         <thead>
           <th>#</th>
           <th>Description</th>
           <th>Date</th>
         </thead>
-        <tbody>{Materials.map(renderMaterial)}</tbody>
-      </Table>
+        <tbody>{materials.map(renderMaterial)}</tbody>
+      </Table>) : (
+        <h4>No materials yet!</h4>
+      )}
+
     </div>
   );
 }
