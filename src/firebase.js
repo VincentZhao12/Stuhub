@@ -14,10 +14,13 @@ firebase.initializeApp(firebaseConfig);
 export const db = firebase.firestore();
 const storageRef = firebase.storage().ref();
 
-export const createNewClass = () => {
+export const createNewClass = (className, classDescription) => {
   const doc = db.collection("classes").doc();
-
-  doc.set({});
+  
+  doc.set({
+    className: className,
+    classDescription: classDescription
+  });
 
   return doc.id;
 };
@@ -81,18 +84,18 @@ export const getClassesFromUser = async () => {
 }
 
 //is the getVideos class good?
-export const getVideos = async (classroom) => {
+// export const getVideos = async (classroom) => {
 
-  const fetchData = async() => {
-    const data = await db.collection("classes").doc(classroom).collection("lectures").get();
-    return data.docs.map(doc => {
-      return doc.data()
-    });
-  }
+//   const fetchData = async() => {
+//     const data = await db.collection("classes").doc(classroom).collection("lectures").get();
+//     return data.docs.map(doc => {
+//       return doc.data()
+//     });
+//   }
 
 
-  return await fetchData();
-}
+//   return await fetchData();
+// }
 export const getMaterials = async (classroom) => {
   
 

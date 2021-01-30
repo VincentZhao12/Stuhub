@@ -11,6 +11,7 @@ import LectureViewer from "./LectureComponents/LectureViewer";
 import Signup from "./User/Signup";
 import Login from "./User/Login";
 import MaterialEditor from "./MaterialComponents/MaterialEditor";
+import CreateClass from "./Classroom/CreateClass";
 
 // materials, lecture viewer, formatting
 
@@ -84,6 +85,7 @@ function App() {
         <Route exact path="/lecture-upload" component={LectureEditor} />
         <Route exact path="/lecture-view-:video" component={LectureViewer} />
         <Route exact path="/classes" component={Classes} />
+        <Route exact path="/create-class" component={CreateClass} />
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={Login} />
         <Route exact path='/material-upload' component={MaterialEditor}/>

@@ -3,7 +3,7 @@ import { useClassCode } from "./stores";
 import Alert from "react-bootstrap/Alert";
 import MaterialViewer from "./MaterialComponents/MaterialViewer"
 import { Button, Container } from "react-bootstrap";
-import { auth, getClassesFromUser, getVideos, getMaterials } from "./firebase";
+import { auth, getClassesFromUser, getVideos, getMaterials, db } from "./firebase";
 import { Link } from  "react-router-dom";
 
 function Homepage() {
@@ -12,15 +12,18 @@ function Homepage() {
   const [videos, setVideos] = useState([]);
   const [materials, setMaterials] = useState([]);
   useEffect(() => {
-    getClassesFromUser().then((classes) => {
-      setStudentClasses(classes);
-    });
-    getVideos(classroom).then((lectures) => {
-      setVideos(lectures);
-    });
-    getMaterials(classroom).then((materials)=> {
-      setMaterials(materials);
-    });
+    const fetchData = async() => {
+      const userClasses = await db.collection("users").doc(auth.currentUser.uid)
+    }
+    // getClassesFromUser().then((classes) => {
+    //   setStudentClasses(classes);
+    // });
+    // getVideos(classroom).then((lectures) => {
+    //   setVideos(lectures);
+    // });
+    // getMaterials(classroom).then((materials)=> {
+    //   setMaterials(materials);
+    // });
   })
 
   if (auth.currentUser === null) {

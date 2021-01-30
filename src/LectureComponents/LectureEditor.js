@@ -22,21 +22,24 @@ function LectureEditor({ filematch }) {
     );
   };
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Label>Title:</Form.Label>
-      <Form.Control name="title" type="text" required />
-      <Form.Label>Description:</Form.Label>
-      <Form.Control name="description" type="text" required />
-      <Form.Label>Video File:</Form.Label>
-      <Form.Control
-        name="upload"
-        type="file"
-        onChange={(e) => {
-          setFile(e.target.files[0]);
-        }}
-      />
-      <Button type="submit">Submit</Button>
-    </Form>
+    <>
+      <Form onSubmit={handleSubmit}>
+        <Form.Label>Title:</Form.Label>
+        <Form.Control name="title" type="text" required />
+        <Form.Label>Description:</Form.Label>
+        <Form.Control name="description" type="text" required />
+        <Form.Label>Video File:</Form.Label>
+        <Form.Control
+          name="upload"
+          type="file"
+          onChange={(e) => {
+            setFile(e.target.files[0]);
+          }}
+        />
+        <Button type="submit">Submit</Button>
+      </Form>
+    </>
+    
   );
 }
 
