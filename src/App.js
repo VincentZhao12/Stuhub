@@ -67,11 +67,11 @@ function App() {
             {showAddClass && <AddClass />}
           </Navbar>
         </header>
-        <button onClick={() => console.log(createNewClass())}>test</button>
+        <button onClick={() => console.log(createNewClass())}>test create new class</button>
 
         {/* <MaterialViewer /> */}
       </div>
-      <Link to="/lecture-view-_Retro53_preview.mp4">view</Link>
+      <Link to="/lecture-view-_Retro53_preview.mp4">test lecture viewer</Link>
       <Route exact path="/" component={Homepage} />
       <Route exact path="/add-class" component={AddClass} />
       <Route exact path="/lecture-upload" component={LectureEditor} />

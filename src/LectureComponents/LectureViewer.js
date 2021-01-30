@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import firebase, { getVideo } from "../firebase";
+import firebase, { db } from "../firebase";
 import { useClassCode } from "../stores";
-import Video from "react-video-renderer";
+// import Video from "react-video-renderer";
+import QierPlayer from 'qier-player';
 
 function LectureViewer({ match }) {
   const [videoSrc, setVideoSrc] = useState("");
@@ -10,16 +11,25 @@ function LectureViewer({ match }) {
   const classroom = useClassCode((state) => state.classCode);
 
   useEffect(() => {
-    const video = getVideo(classroom, match.params.videoName);
-    console.log(video);
-    setVideoSrc(firebase.storage().ref(classroom + "/" + video.data.src));
-    setVideoTitle(video.data.title);
-    setVideoDesc(video.data.description);
+    const fetchData = async () => {
+      console.log(match.params.video);
+      const data = await (await db.collection("classes").doc(classroom).collection("lectures").doc(match.params.video).get()).data();
+      console.log(data);
+      firebase.storage().ref(classroom + "/" + match.params.video).getDownloadURL().then((url) => {
+        console.log(url);
+        setVideoSrc(url);
+      }).catch((error) => {
+        console.log(error);
+      });
+      setVideoTitle(data.data.title);
+      setVideoDesc(data.data.description);
+    }
+    fetchData();
   }, [classroom, match]);
 
   return (
     <div>
-      <Video src={videoSrc}>
+      {videoSrc && <QierPlayer srcOrigin={videoSrc} />/*<Video src={videoSrc}>
         {(video, state, actions) => (
           <div>
             {video}
@@ -41,10 +51,10 @@ function LectureViewer({ match }) {
             <button onClick={actions.requestFullScreen}>Fullscreen</button>
           </div>
         )}
-      </Video>
+      </Video>} */}
 
-      <h1>Lecture Title</h1>
-      <h2>Lecture Description</h2>
+      <h1>{videoTitle}</h1>
+      <h4>{videoDesc}</h4>
     </div>
   );
 }

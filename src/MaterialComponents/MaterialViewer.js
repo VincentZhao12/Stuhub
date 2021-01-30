@@ -1,4 +1,3 @@
-import { getVideo } from "../firebase";
 import React from "react";
 import Table from "react-bootstrap/Table";
 
@@ -10,7 +9,7 @@ const Materials = [
 
 function MaterialViewer() {
   const downloadFile = (index) => {
-    getVideo();
+    
   };
 
   const renderMaterial = (material, index) => {

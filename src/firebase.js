@@ -11,7 +11,7 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+export const db = firebase.firestore();
 const storageRef = firebase.storage().ref();
 
 export const createNewClass = () => {
@@ -20,16 +20,6 @@ export const createNewClass = () => {
   doc.set({});
 
   return doc.id;
-};
-
-export const getVideo = (classId, video) => {
-  const getDoc = async () => {
-    const ref = db.collection("classes").doc(classId).collection("lectures").doc(video);
-    const doc =  await ref.get();
-    console.log(doc.data());
-    return doc;
-  }
-  return getDoc();
 };
 
 export const addVideo = async (file, classId, title, description) => {
