@@ -1,0 +1,13 @@
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+
+$theme-colors: (
+    "primary": #342343
+);
+
+// @function theme-color($key: "primary") {
+//     @return map-get($theme-colors, $key);
+// }
+
+@import "../node_modules/bootstrap/scss/bootstrap";
