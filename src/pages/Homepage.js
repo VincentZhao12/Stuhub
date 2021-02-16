@@ -1,10 +1,10 @@
+import '../scss/custom.scss';
+import './Homepage.css';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useData } from '../contexts/DataContext';
 import LandingImg from "../assets/LandingImg";
 import { Button, Container, Row, Col } from "react-bootstrap";
-import '../custom.scss';
-import './Homepage.css';
 
 const Homepage = () => {
     const { currentUser } = useAuth();
