@@ -2,9 +2,12 @@ import React, { useState } from "react"
 import { Form, Button, Card, Alert, Container } from "react-bootstrap"
 import { useAuth } from "../../contexts/AuthContext"
 import { Link, useHistory } from "react-router-dom"
+import { useData } from "../../contexts/DataContext";
+import { auth } from "../../firebase";
 
 export default function Signup() {
-  const { signup } = useAuth();
+  const { signup, currentUser } = useAuth();
+  const { addUser } = useData();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const history = useHistory();
@@ -20,6 +23,7 @@ export default function Signup() {
       setError("");
       setLoading(true);
       await signup(event.target.elements["email"].value, event.target.elements["password"].value);
+      addUser(auth.currentUser.uid);
       
       history.push("/");
     } catch (error) {

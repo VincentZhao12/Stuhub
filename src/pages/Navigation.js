@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
 const Navigation = () => {
-    const { currentUser } = useAuth();
+    const { currentUser, logout } = useAuth();
 
     return (
         <>
@@ -19,7 +19,10 @@ const Navigation = () => {
                                 <Nav.Link as={Link} to="/login" style={{fontSize: 18}}>Login</Nav.Link>
                                 <Nav.Link as={Link} to="/signup" style={{fontSize: 18}}>Signup</Nav.Link>
                             </>
-                        ) : <></>}
+                        ) : 
+                            <>
+                                <Nav.Link as={Link} onClick={() => logout()} to="/" >Log Out</Nav.Link>
+                            </>}
                         
                     </Nav>
                 </Navbar.Collapse>                
