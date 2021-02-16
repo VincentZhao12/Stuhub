@@ -15,8 +15,6 @@ export const DataProvider = ({ children }) => {
     const [userData, setUserData] = useState({});
     const [classData, setClassData] = useState({});
     const [currentClass, setCurrentClass] = useState("");
-    const [lecture, setLectureState] = useState("");
-    const [material, setMaterialState] = useState("");
     const { currentUser } = useAuth();
 
     const updateUserData = async () => {
@@ -129,14 +127,6 @@ export const DataProvider = ({ children }) => {
         });
     }
 
-    const setLecture = (lectureId) => {
-        storage.ref(currentClass + "/lectures/" + lectureId).getDownloadURL().then((url) => setLectureState(url));
-    }
-
-    const setMaterial = (materialId) => {
-        storage.ref(currentClass + "/materials/" + materialId).getDownloadURL().then((url) => setMaterialState(url));
-    }
-
     const value = {
         userData, 
         classData,
@@ -149,10 +139,6 @@ export const DataProvider = ({ children }) => {
         createClass,
         createLecture,
         createMaterial,
-        lecture,
-        setLecture, 
-        material,
-        setMaterial
     }
 
     return (
