@@ -30,7 +30,7 @@ const Homepage = () => {
                                 <h2>The platform for easy classroom material mangement!</h2>
                             </Row>
                             <Row style={{marginBottom: "30px"}}>
-                                <Button className="primary" as={Link} to="/login" style={{width: 500, fontSize: 25}}>Get Started!</Button>
+                                <Button variant="custom-secondary" as={Link} to="/login" style={{width: 500, fontSize: 25}}>Get Started!</Button>
                             </Row>
                             <br /><br />
                         </Col>

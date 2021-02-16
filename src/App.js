@@ -8,7 +8,7 @@ import Homepage from './pages/Homepage';
 import Navigation from "./pages/Navigation";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import './custom.scss';
 
 function App() {
   return (
