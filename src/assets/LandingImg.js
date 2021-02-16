@@ -5,8 +5,10 @@ function LandingImg(props) {
     <svg
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
-      width={500}
-      height={362.4233}
+      // width={500}
+      // height={362.4233}
+      width="100%"
+      height="100%"
       viewBox="0 0 744 539.286"
       {...props}
     >

@@ -1,7 +1,7 @@
-@import "../node_modules/bootstrap/scss/functions";
-@import "../node_modules/bootstrap/scss/variables";
-@import "../node_modules/bootstrap/scss/mixins";
-@import "../node_modules/bootstrap/scss/bootstrap";
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+@import "../../node_modules/bootstrap/scss/bootstrap";
 
 $primary-color: #05668D;
 $primary-light-color: #028090;
@@ -20,14 +20,6 @@ $h1-margin: 30px;
 $h2-margin: 25px;
 $h3-margin: 20px;
 $p-margin: 5px;
-
-$theme-colors: (
-    "primary": #342343
-);
-
-// @function theme-color($key: "primary") {
-//     @return map-get($theme-colors, $key);
-// }
 
 h1 {
     font-size: $h1-font-size;
@@ -58,6 +50,7 @@ p {
     background-color: $primary-light-color;
     color: $button-text-color;
 }
+
 .btn-custom-primary:hover {
     @extend .btn-custom-primary;
     background-color: $primary-color;
@@ -67,6 +60,7 @@ p {
     background-color: $secondary-light-color;
     color: $button-text-color;
 }
+
 .btn-custom-secondary:hover {
     @extend .btn-custom-secondary;
     background-color: $secondary-color;

@@ -4,6 +4,7 @@ import { useData } from '../contexts/DataContext';
 import LandingImg from "../assets/LandingImg";
 import { Button, Container, Row, Col } from "react-bootstrap";
 import { Link } from 'react-router-dom';
+import './Homepage.css';
 
 const Homepage = () => {
     const { currentUser } = useAuth();
@@ -19,25 +20,15 @@ const Homepage = () => {
     return (
         <>
             {currentUser ? (<></>) : (
-                <Container fluid className="mt-auto mb-auto">
-                    <Row className="mt-auto mb-auto" md={{ span: 3, offset: 3 }}>
-                        <Col className="col-md-6 col-md-offset-3" style={{paddingLeft: "17%"}}>
-                            <br /><br />
-                            <Row>
-                                <h1>Welcome to Stuhub!</h1>
-                            </Row>
-                            <Row>
-                                <h2>The platform for easy classroom material mangement!</h2>
-                            </Row>
-                            <Row style={{marginBottom: "30px"}}>
-                                <Button variant="custom-secondary" as={Link} to="/login" style={{width: 500, fontSize: 25}}>Get Started!</Button>
-                            </Row>
-                            <br /><br />
+                <Container>
+                    <Row className="content">
+                        <Col className="info ml-auto mr-auto" sm={8} md={6}>
+                            <h1>Welcome to Stuhub!</h1>
+                            <h2>The platform for easy classroom material management!</h2>
+                            <Button variant="custom-secondary" as={Link} to="/login"> Get Started!</Button>
                         </Col>
-                        <Col style={{paddingLeft: "1%"}}>
-                            <br /><br />
+                        <Col className="img ml-auto mr-auto" sm={8} md={6}>
                             <LandingImg/>
-                            <br /><br />
                         </Col>
                     </Row>
                 </Container>
