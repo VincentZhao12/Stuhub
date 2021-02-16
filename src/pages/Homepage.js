@@ -3,8 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useData } from '../contexts/DataContext';
 import LandingImg from "../assets/LandingImg";
 import { Button, Container, Row, Col } from "react-bootstrap";
-import '../custom.scss';
-import './Homepage.css';
+import { Link } from 'react-router-dom';
 
 const Homepage = () => {
     const { currentUser } = useAuth();
@@ -19,26 +18,28 @@ const Homepage = () => {
     return (
         <>
             {currentUser ? (<></>) : (
-                <Container className="page mt-auto mb-auto" style={{paddingLeft: "50px", paddingRight: "50px"}} fluid>
+                <Container fluid>
                     <Row>
-                        <Col className="mt-auto mb-auto" md={{ span: 3, offset: 3 }}>
-                                <Row md={{ span: 3, offset: 3 }}>
-                                    <h2>
-                                        Welcome to Stuhub!
-                                    </h2>
-                                </Row>
-                                <Row>
-                                    <h2>
-                                        The platform for easy classroom material mangement!
-                                    </h2>
-                                </Row>
-                                <Row style={{marginBottom: "30px"}}>
-                                    <Button variant="primary">Get Started!</Button>
-                                </Row>
+                        <Col></Col>
+                        <Col className="col-4" >
+                            <br /><br />
+                            <Row>
+                                <h1>Welcome to Stuhub!</h1>
+                            </Row>
+                            <Row>
+                                <h2>The platform for easy classroom material mangement!</h2>
+                            </Row>
+                            <Row style={{marginBottom: "30px"}}>
+                                <Button className="primary" as={Link} to="/login" style={{width: 500, fontSize: 25}}>Get Started!</Button>
+                            </Row>
+                            <br /><br />
                         </Col>
                         <Col>
+                            <br /><br />
                             <LandingImg style={{marginLeft: "50px", marginRight: "50px"}}/>
+                            <br /><br />
                         </Col>
+                        <Col></Col>
                     </Row>
                 </Container>
             )}

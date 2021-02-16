@@ -4,7 +4,7 @@ h1 {
 }
 
 h2 {
-    font-size: 33px;
+    font-size: 35px;
     margin-bottom: 25px;
 }
 
@@ -16,4 +16,9 @@ h3 {
 p {
     font-size: 15px;
     margin-bottom: 5px;
+}
+
+.primary {
+    background-color: #00A896;
+    border: none
 }

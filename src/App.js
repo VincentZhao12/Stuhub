@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { DataProvider } from './contexts/DataContext';
-import { Container } from 'react-bootstrap';
+import Login from './pages/login/Login';
+import Signup from './pages/login/Signup';
 import Homepage from './pages/Homepage';
 import Navigation from "./pages/Navigation";
 
@@ -19,6 +20,8 @@ function App() {
               <Switch>
                 {/* Put routes here */}
                 <Route exact path="/" component={Homepage} />
+                <Route exact path="/login" component={Login} />
+                <Route exact path="/signup" component={Signup} />
               </Switch>
           </Router>
         </DataProvider>
