@@ -13,6 +13,7 @@ const Homepage = () => {
     useEffect(() => {
         // update user and class data, then setUserClasses to the user's classes to an array of objects using userData and classData
         // set the current class to the first class by default
+        updateClassData();
     }, [])
 
     return (
