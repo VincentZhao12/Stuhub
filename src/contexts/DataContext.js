@@ -31,28 +31,18 @@ export const DataProvider = ({ children }) => {
         let classes = {};
 
         classesRef.docs.forEach(async (doc) => {
-            const lectureRef = await db.collection("classes").doc(doc.id).collection("lectures").get();
+            // const lectureRef = await db.collection("classes").doc(doc.id).collection("lectures").get();
 
-            let lectures = {};
+            // let lectures = lectureRef.docs.map(_doc => ({..._doc.data(), id: _doc.id}));
             
-            lectureRef.docs.forEach(_doc => {
-                lectures[_doc.id] = _doc.data();
-                lectures[_doc.id].id = _doc.id;
-            });
+            // const materialRef = await db.collection("classes").doc(doc.id).collection("materials").get();
 
-            const materialRef = await db.collection("classes").doc(doc.id).collection("materials").get();
-
-            let materials = {};
-            
-            materialRef.docs.forEach(_doc => {
-                materials[_doc.id] = _doc.data();
-                materials[_doc.id].id = _doc.id;
-            });
+            // let materials = materialRef.docs.map(_doc => ({..._doc.data(), id: _doc.id}));
 
             classes[doc.id] = doc.data();
             classes[doc.id].id = doc.id;
-            classes[doc.id].lectures = lectures;
-            classes[doc.id].materials = materials;
+            // classes[doc.id].lectures = lectures;
+            // classes[doc.id].materials = materials;
             setClassData(classes);
         });
 
@@ -77,7 +67,7 @@ export const DataProvider = ({ children }) => {
         });
     }
 
-    const createClass = async (name) => {
+    const createClass = async (name, description) => {
         // create a new class
         
         const doc = db.collection("classes").doc();
@@ -85,8 +75,11 @@ export const DataProvider = ({ children }) => {
         doc.set({
             id: doc.id,
             name: name,
+            description: description,
             creator: currentUser.uid
         });
+
+        console.log(userData);
 
         await db.collection("users").doc(currentUser.uid).update({
             teacherClasses: [...userData.teacherClasses, doc.id]

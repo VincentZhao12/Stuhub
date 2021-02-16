@@ -10,8 +10,18 @@
     height: 80vh;
 }
 
+.info {
+    max-height: 400px;
+}
+
 .img {
     max-height: 300px;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @include media-breakpoint-up(md) {
@@ -22,7 +32,6 @@
 
     .img-col {
         margin-bottom: 30px;
-        margin-left: 25px;
     }
 }
 

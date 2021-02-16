@@ -39,3 +39,24 @@
     @extend .btn-custom-secondary;
     background-color: $secondary-color;
 }
+
+.custom-primary {
+    color: $primary-color;
+}
+
+.custom-primary-light {
+    color: $primary-light-color;
+}
+
+.custom-secondary {
+    color: $secondary-color;
+}
+
+
+.custom-secondary-light {
+    color: $secondary-light-color;
+}
+
+.custom-highlight {
+    color: $highlight-color;
+}

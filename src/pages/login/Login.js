@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Form, Button, Alert, Container } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import './styles.css'
 
 const Login = () => {
     const { login } = useAuth();
@@ -19,14 +20,20 @@ const Login = () => {
 
             history.push("/");
         } catch(error) {
-            setError(error.message);
+            if(error.message === "There is no user record corresponding to this identifier. The user may have been deleted."){
+                setError("Your email or password is not correct, or your account does not exist.")
+            }
+            else{
+                setError("Failed to Log in")
+            }
+            
         }
 
         setLoading(false);
     }
     
     return (
-        <Container className="d-flex align-items-center justify-content-center">
+        <Container className="d-flex align-items-center justify-content-center" styles={{height: "80vh"}}>
             <div className="w-100">
                 <Card>
                     <Card.Body>
@@ -34,11 +41,11 @@ const Login = () => {
                         {error && <Alert variant="danger">{error}</Alert>}
                         <Form onSubmit={handleSubmit}>
                             <Form.Group id="email">
-                                <Form.Label>E-mail: </Form.Label>
+                                <Form.Label>Email</Form.Label>
                                 <Form.Control name="email" type="email" />
                             </Form.Group>
                             <Form.Group id="password">
-                                <Form.Label>Password: </Form.Label>
+                                <Form.Label>Password</Form.Label>
                                 <Form.Control name="password" type="password" />
                             </Form.Group>
                             <Button className="w-100" type="submit" disabled={loading} variant="custom-primary" >

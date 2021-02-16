@@ -11,7 +11,7 @@ const Navigation = () => {
         <>
             {/* A navbar with Stuhub on one side and a login signup button if they aren't signed in and a logout button if they are logged in */}
             <Navbar className="justify-content-between flex">
-                <Navbar.Brand as={Link} to="/"><h2>Stuhub</h2></Navbar.Brand>
+                <Navbar.Brand as={Link} to="/"><h2 className="custom-primary">Stuhub</h2></Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="ml-auto">
@@ -22,7 +22,9 @@ const Navigation = () => {
                             </>
                         ) : 
                             <>
-                                <Nav.Link as={Link} onClick={() => logout()} to="/" >Log Out</Nav.Link>
+                                <Nav.Link as={Link} to="/enroll-class" ><h3>Join Class</h3></Nav.Link>
+                                <Nav.Link as={Link} to="/create-class" ><h3>Create Class</h3></Nav.Link>
+                                <Nav.Link as={Link} onClick={() => logout()} to="/" ><h3>Log Out</h3></Nav.Link>
                             </>}
                         
                     </Nav>

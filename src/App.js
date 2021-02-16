@@ -6,9 +6,11 @@ import Login from './pages/login/Login';
 import Signup from './pages/login/Signup';
 import Homepage from './pages/Homepage';
 import Navigation from "./pages/Navigation";
+import EnrollClass from "./pages/classes/EnrollClass"
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './scss/custom.scss';
+import CreateClass from './pages/classes/CreateClass';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
                 <Route exact path="/" component={Homepage} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" component={Signup} />
+                <Route exact path="/enroll-class" component={EnrollClass} />
+                <Route exact path="/create-class" component={CreateClass} />
               </Switch>
           </Router>
         </DataProvider>
