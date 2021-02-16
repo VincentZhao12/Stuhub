@@ -8,8 +8,9 @@ import './Homepage.css';
 
 const Homepage = () => {
     const { currentUser } = useAuth();
-    const { userData, updateUserData, classData, updateClassData, setCurrentClass, currentClass } = useData();
+    const { userData, updateUserData, classData, updateClassData, setCurrentClass, currentClass, createLecture } = useData();
     const [userClasses, setUserClasses] = useState([]);
+    const [file, setFile] = useState();
 
     useEffect(() => {
         // update user and class data, then setUserClasses to the user's classes to an array of objects using userData and classData
@@ -18,17 +19,26 @@ const Homepage = () => {
         if(currentUser) {
             updateUserData();
             setUserClasses(userData.studentClasses);
-            if(userData.studentClasses.length)
+            if(userData.studentClasses && userData.studentClasses.length)
                 setCurrentClass(userData.studentClasses[0]);
-            else if(userData.teacherClasses.length)
+            else if(userData.teacherClasses && userData.teacherClasses.length)
                 setCurrentClass(userData.teacherClasses[0]);
         }
-    }, [])
+    }, []);
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        createLecture(event.target.elements["name"].value, event.target.elements["description"].value, file);
+    }
 
     return (
         <>
-            {currentUser ? (<></>) : (
-                <Container className="page" fluid>
+            {currentUser ? (
+                <>
+                    
+                </>
+                ) : (
+                <Container className="page">
                     <Row className="content">
                         <Col className="info ml-auto mr-auto" sm={8} md={6}>
                             <h1>Welcome to Stuhub!</h1>

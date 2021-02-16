@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
-import { db } from "../firebase";
+import { db, storage } from "../firebase";
 import { useAuth } from './AuthContext';
 
 // to use the stuff in the context do: 
@@ -15,6 +15,8 @@ export const DataProvider = ({ children }) => {
     const [userData, setUserData] = useState({});
     const [classData, setClassData] = useState({});
     const [currentClass, setCurrentClass] = useState("");
+    const [lecture, setLectureState] = useState("");
+    const [material, setMaterialState] = useState("");
     const { currentUser } = useAuth();
 
     const updateUserData = async () => {
@@ -93,6 +95,48 @@ export const DataProvider = ({ children }) => {
         });
     }
 
+    const createLecture = async (name, description, file) => {
+        // upload a lecture and add the information about the lecture to firestorec
+
+        const doc = db.collection("classes").doc(currentClass).collection("lectures").doc();
+        const ref = storage.ref(currentClass + "/lectures/" + doc.id);
+        ref.put(file).then((url) => {
+            ref.getDownloadURL().then((url) => {
+                doc.set({
+                    id:doc.id,
+                    name: name,
+                    description: description,
+                    url: url
+                });
+            })
+        });
+    }
+
+    const createMaterial = async (name, description, file) => {
+        // upload a material and add the information about the material to firestorec
+
+        const doc = db.collection("classes").doc(currentClass).collection("materials").doc();
+        const ref = storage.ref(currentClass + "/materials/" + doc.id);
+        ref.put(file).then(() => {
+            ref.getDownloadURL().then((url) => {
+                doc.set({
+                    id:doc.id,
+                    name: name,
+                    description: description,
+                    url: url
+                });
+            })
+        });
+    }
+
+    const setLecture = (lectureId) => {
+        storage.ref(currentClass + "/lectures/" + lectureId).getDownloadURL().then((url) => setLectureState(url));
+    }
+
+    const setMaterial = (materialId) => {
+        storage.ref(currentClass + "/materials/" + materialId).getDownloadURL().then((url) => setMaterialState(url));
+    }
+
     const value = {
         userData, 
         classData,
@@ -102,7 +146,13 @@ export const DataProvider = ({ children }) => {
         setCurrentClass, 
         addUser, 
         enrollClass,
-        createClass
+        createClass,
+        createLecture,
+        createMaterial,
+        lecture,
+        setLecture, 
+        material,
+        setMaterial
     }
 
     return (
