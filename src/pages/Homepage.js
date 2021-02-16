@@ -1,10 +1,10 @@
-import '../scss/custom.scss';
-import './Homepage.css';
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useData } from '../contexts/DataContext';
 import LandingImg from "../assets/LandingImg";
 import { Button, Container, Row, Col } from "react-bootstrap";
+import { Link } from 'react-router-dom';
+import './Homepage.css';
 
 const Homepage = () => {
     const { currentUser } = useAuth();
@@ -19,25 +19,15 @@ const Homepage = () => {
     return (
         <>
             {currentUser ? (<></>) : (
-                <Container className="page mt-auto mb-auto" style={{paddingLeft: "50px", paddingRight: "50px"}} fluid>
-                    <Row>
-                        <Col className="mt-auto mb-auto" md={{ span: 3, offset: 3 }}>
-                                <Row md={{ span: 3, offset: 3 }}>
-                                    <h2>
-                                        Welcome to Stuhub!
-                                    </h2>
-                                </Row>
-                                <Row>
-                                    <h2>
-                                        The platform for easy classroom material mangement!
-                                    </h2>
-                                </Row>
-                                <Row style={{marginBottom: "30px"}}>
-                                    <Button variant="primary">Get Started!</Button>
-                                </Row>
+                <Container>
+                    <Row className="content">
+                        <Col className="info ml-auto mr-auto" sm={8} md={6}>
+                            <h1>Welcome to Stuhub!</h1>
+                            <h2>The platform for easy classroom material management!</h2>
+                            <Button variant="custom-secondary" as={Link} to="/login"> Get Started!</Button>
                         </Col>
-                        <Col>
-                            <LandingImg style={{marginLeft: "50px", marginRight: "50px"}}/>
+                        <Col className="img ml-auto mr-auto" sm={8} md={6}>
+                            <LandingImg/>
                         </Col>
                     </Row>
                 </Container>

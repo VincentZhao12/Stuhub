@@ -1,16 +1,10 @@
-.page {
+.content {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 80vh;
 }
 
-/* .call-to-action {
-    background-color: #00A896 !important;
-    border: #00A896 !important;
+.info {
+    margin-bottom: 30px;
 }
-
-.btn:focus, .btn:active {
-    outline: none !important;
-    box-shadow: none ;
-} */

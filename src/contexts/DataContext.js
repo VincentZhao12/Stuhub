@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import { db } from "../firebase";
+import { useAuth } from './AuthContext';
 
 // to use the stuff in the context do: 
 // const {the stuff you want ex: userData, updateUserData} = useData();
@@ -14,20 +15,25 @@ export const DataProvider = ({ children }) => {
     const [userData, setUserData] = useState({});
     const [classData, setClassData] = useState({});
     const [currentClass, setCurrentClass] = useState("");
+    const { currentUser } = useAuth();
 
-    const updateUserData = async() => {
+    const updateUserData = async () => {
         // firebase stuff, setUserData to what u get from db
+        const userRef = await db.collection("users").doc(currentUser.uid).get();
+        setUserData(userRef.data());
     }
 
-    const updateClassData = async() => {
+    const updateClassData = async () => {
         // firebase stuff, setClassData to what u get from db
+        const classesRef = await db.collection("classes").get();
+
     }
 
-    const addUser = async() => {
+    const addUser = async () => {
         // firebase stuff to add a user
     }
 
-    const enrollClass = async() => {
+    const enrollClass = async () => {
         // enroll the user in a class
     }
 

@@ -1,7 +1,67 @@
-$primary: green;
-
-$theme-colors: (
-    "primary": $primary
-);
-
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
 @import "../../node_modules/bootstrap/scss/bootstrap";
+
+$primary-color: #05668D;
+$primary-light-color: #028090;
+$secondary-color: #00A896;
+$secondary-light-color: #02C39A;
+$highlight-color: #F0F3BD;
+$text-color: black;
+$button-text-color: white;
+
+$h1-font-size: 50px;
+$h2-font-size: 35px;
+$h3-font-size: 22px;
+$p-font-size: 15px;
+
+$h1-margin: 30px;
+$h2-margin: 25px;
+$h3-margin: 20px;
+$p-margin: 5px;
+
+h1 {
+    font-size: $h1-font-size;
+    margin-bottom: $h1-margin;
+}
+
+h2 {
+    font-size: $h2-font-size;
+    margin-bottom: $h2-margin;
+}
+
+h2 {
+    font-size: $h2-font-size;
+    margin-bottom: $h2-margin;
+}
+
+h3 {
+    font-size: $h3-font-size;
+    margin-bottom: $h3-margin;
+}
+
+p {
+    font-size: $p-font-size;
+    margin-bottom: $p-margin;
+}
+
+.btn-custom-primary {
+    background-color: $primary-light-color;
+    color: $button-text-color;
+}
+
+.btn-custom-primary:hover {
+    @extend .btn-custom-primary;
+    background-color: $primary-color;
+}
+
+.btn-custom-secondary {
+    background-color: $secondary-light-color;
+    color: $button-text-color;
+}
+
+.btn-custom-secondary:hover {
+    @extend .btn-custom-secondary;
+    background-color: $secondary-color;
+}
