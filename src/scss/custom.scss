@@ -1,15 +1,8 @@
-@import "../../node_modules/bootstrap/scss/functions";
-@import "../../node_modules/bootstrap/scss/variables";
-@import "../../node_modules/bootstrap/scss/mixins";
-@import "../../node_modules/bootstrap/scss/bootstrap";
-
-$primary-color: #05668D;
-$primary-light-color: #028090;
-$secondary-color: #00A896;
-$secondary-light-color: #02C39A;
-$highlight-color: #F0F3BD;
-$text-color: black;
-$button-text-color: white;
+@import '../../node_modules/bootstrap/scss/functions';
+@import '../../node_modules/bootstrap/scss/variables';
+@import '../../node_modules/bootstrap/scss/mixins';
+@import '../../node_modules/bootstrap/scss/bootstrap';
+@import './vars.scss';
 
 // md and up
 @include media-breakpoint-up(md) {

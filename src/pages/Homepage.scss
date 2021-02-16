@@ -1,0 +1,39 @@
+@import '../../node_modules/bootstrap/scss/functions';
+@import '../../node_modules/bootstrap/scss/variables';
+@import '../../node_modules/bootstrap/scss/mixins';
+@import '../../node_modules/bootstrap/scss/bootstrap';
+
+.content {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    height: 80vh;
+}
+
+.img {
+    max-height: 300px;
+}
+
+@include media-breakpoint-up(md) {
+    .info {
+        margin-bottom: 30px;
+        margin-right: 25px;
+    }
+
+    .img-col {
+        margin-bottom: 30px;
+        margin-left: 25px;
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    .info {
+        margin-bottom: 30px;
+        margin-right: auto;
+    }
+
+    .img-col {
+        margin-bottom: 30px;
+        margin-left: auto;
+    }
+}
