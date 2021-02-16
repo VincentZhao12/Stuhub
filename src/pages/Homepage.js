@@ -19,12 +19,12 @@ const Homepage = () => {
     return (
         <>
             {currentUser ? (<></>) : (
-                <Container>
+                <Container className="page" fluid>
                     <Row className="content">
                         <Col className="info ml-auto mr-auto" sm={8} md={6}>
                             <h1>Welcome to Stuhub!</h1>
                             <h2>The platform for easy classroom material management!</h2>
-                            <Button variant="custom-secondary" as={Link} to="/login"> Get Started!</Button>
+                            <Button mr-auto variant="custom-secondary" as={Link} to="/login"> Get Started!</Button>
                         </Col>
                         <Col className="img ml-auto mr-auto" sm={8} md={6}>
                             <LandingImg/>

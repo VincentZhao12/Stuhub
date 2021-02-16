@@ -11,39 +11,20 @@ $highlight-color: #F0F3BD;
 $text-color: black;
 $button-text-color: white;
 
-$h1-font-size: 50px;
-$h2-font-size: 35px;
-$h3-font-size: 22px;
-$p-font-size: 15px;
-
-$h1-margin: 30px;
-$h2-margin: 25px;
-$h3-margin: 20px;
-$p-margin: 5px;
-
-h1 {
-    font-size: $h1-font-size;
-    margin-bottom: $h1-margin;
+// md and up
+@include media-breakpoint-up(md) {
+    h1{font-size:50px; margin-bottom: 30px;}
+    h2{font-size: 35px; margin-bottom: 25px;}
+    h3{font-size: 22px; margin-bottom: 20px;}
+    p{font-size: 15px; margin-bottom: 5px;}
 }
 
-h2 {
-    font-size: $h2-font-size;
-    margin-bottom: $h2-margin;
-}
-
-h2 {
-    font-size: $h2-font-size;
-    margin-bottom: $h2-margin;
-}
-
-h3 {
-    font-size: $h3-font-size;
-    margin-bottom: $h3-margin;
-}
-
-p {
-    font-size: $p-font-size;
-    margin-bottom: $p-margin;
+// sm breakpoint
+@include media-breakpoint-down(sm) {
+    h1{font-size:35px; margin-bottom: 25px;}
+    h2{font-size: 22px; margin-bottom: 20px;}
+    h3{font-size: 15px; margin-bottom: 15px;}
+    p{font-size: 12px; margin-bottom: 5px;}
 }
 
 .btn-custom-primary {
