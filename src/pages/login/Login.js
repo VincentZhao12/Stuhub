@@ -16,6 +16,8 @@ const Login = () => {
             setError("");
             setLoading(true);
             await login(event.target.elements["email"].value, event.target.elements["password"].value);
+
+            history.push("/");
         } catch(error) {
             setError(error.message);
         }

@@ -8,18 +8,26 @@ import './Homepage.css';
 
 const Homepage = () => {
     const { currentUser } = useAuth();
-    const { userData, updateUserData, classData, updateClassData, setCurrentClass } = useData();
+    const { userData, updateUserData, classData, updateClassData, setCurrentClass, currentClass } = useData();
     const [userClasses, setUserClasses] = useState([]);
 
     useEffect(() => {
         // update user and class data, then setUserClasses to the user's classes to an array of objects using userData and classData
         // set the current class to the first class by default
         updateClassData();
+        if(currentUser) {
+            updateUserData();
+            setUserClasses(userData.studentClasses);
+            if(userData.studentClasses.length)
+                setCurrentClass(userData.studentClasses[0]);
+            else if(userData.teacherClasses.length)
+                setCurrentClass(userData.teacherClasses[0]);
+        }
     }, [])
 
     return (
         <>
-            {currentUser ? (<></>) : (
+            {currentUser ? (<>{currentClass}</>) : (
                 <Container>
                     <Row className="content">
                         <Col className="info ml-auto mr-auto" sm={8} md={6}>

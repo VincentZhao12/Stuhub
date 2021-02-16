@@ -19,6 +19,7 @@ export const DataProvider = ({ children }) => {
 
     const updateUserData = async () => {
         // firebase stuff, setUserData to what u get from db
+
         const userRef = await db.collection("users").doc(currentUser.uid).get();
         setUserData(userRef.data());
     }
@@ -52,9 +53,10 @@ export const DataProvider = ({ children }) => {
             classes[doc.id].id = doc.id;
             classes[doc.id].lectures = lectures;
             classes[doc.id].materials = materials;
+            setClassData(classes);
         });
 
-        setClassData(classes);
+        
     }
 
     const addUser = async (uid) => {
@@ -83,6 +85,7 @@ export const DataProvider = ({ children }) => {
         doc.set({
             id: doc.id,
             name: name,
+            creator: currentUser.uid
         });
 
         await db.collection("users").doc(currentUser.uid).update({
