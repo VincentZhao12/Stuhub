@@ -18,10 +18,9 @@ const Homepage = () => {
     return (
         <>
             {currentUser ? (<></>) : (
-                <Container fluid>
-                    <Row>
-                        <Col></Col>
-                        <Col className="col-4" >
+                <Container fluid className="mt-auto mb-auto">
+                    <Row className="mt-auto mb-auto" md={{ span: 3, offset: 3 }}>
+                        <Col className="col-md-6 col-md-offset-3" style={{paddingLeft: "17%"}}>
                             <br /><br />
                             <Row>
                                 <h1>Welcome to Stuhub!</h1>
@@ -34,12 +33,11 @@ const Homepage = () => {
                             </Row>
                             <br /><br />
                         </Col>
-                        <Col>
+                        <Col style={{paddingLeft: "1%"}}>
                             <br /><br />
-                            <LandingImg style={{marginLeft: "50px", marginRight: "50px"}}/>
+                            <LandingImg/>
                             <br /><br />
                         </Col>
-                        <Col></Col>
                     </Row>
                 </Container>
             )}

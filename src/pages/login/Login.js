@@ -39,7 +39,7 @@ const Login = () => {
                                 <Form.Label>Password: </Form.Label>
                                 <Form.Control name="password" type="password" />
                             </Form.Group>
-                            <Button className="w-100" type="submit" disabled={loading}>
+                            <Button className="w-100" type="submit" disabled={loading} variant="custom-primary" >
                                 Log In
                             </Button>
                         </Form>
