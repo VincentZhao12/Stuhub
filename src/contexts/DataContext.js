@@ -14,7 +14,9 @@ export const useData = () => {
 export const DataProvider = ({ children }) => {
     const [userData, setUserData] = useState({});
     const [classData, setClassData] = useState({});
-    const [currentClass, setCurrentClass] = useState("");
+    const [currentClass, setClass] = useState("");
+    const [lectureData, setLectureData] = useState({});
+    const [materialData, setMaterialData] = useState({});
     const { currentUser } = useAuth();
 
     const updateUserData = async () => {
@@ -22,6 +24,7 @@ export const DataProvider = ({ children }) => {
 
         const userRef = await db.collection("users").doc(currentUser.uid).get();
         setUserData(userRef.data());
+        return userRef.data();
     }
 
     const updateClassData = async () => {
@@ -30,23 +33,38 @@ export const DataProvider = ({ children }) => {
         
         let classes = {};
 
-        classesRef.docs.forEach(async (doc) => {
-            // const lectureRef = await db.collection("classes").doc(doc.id).collection("lectures").get();
-
-            // let lectures = lectureRef.docs.map(_doc => ({..._doc.data(), id: _doc.id}));
-            
-            // const materialRef = await db.collection("classes").doc(doc.id).collection("materials").get();
-
-            // let materials = materialRef.docs.map(_doc => ({..._doc.data(), id: _doc.id}));
-
+        classesRef.docs.forEach((doc) => {
             classes[doc.id] = doc.data();
-            classes[doc.id].id = doc.id;
-            // classes[doc.id].lectures = lectures;
-            // classes[doc.id].materials = materials;
-            setClassData(classes);
+            classes[doc.id].id = doc.id; 
         });
 
-        
+        setClassData(classes);
+    }
+
+    const updateLectureData = async (_class) => {
+        const lectureRef = await db.collection("classes").doc(_class).collection("lectures").get();
+
+        let lectures = {};
+        lectureRef.docs.forEach(doc => {
+            lectures[doc.id] = doc.data();
+            lectures[doc.id].id = doc.id;
+        });
+
+        setLectureData(lectures);
+    }
+
+    const updateMaterialData = async (_class) => {
+        if(!_class)
+            _class = currentClass;
+        const materialRef = await db.collection("classes").doc(_class).collection("materials").get();
+
+        let materials = {};
+        materialRef.docs.forEach(doc => {
+            materials[doc.id] = doc.data();
+            materials[doc.id].id = doc.id;
+        });
+
+        setMaterialData(materials);
     }
 
     const addUser = async (uid) => {
@@ -120,6 +138,12 @@ export const DataProvider = ({ children }) => {
         });
     }
 
+    const setCurrentClass = (classId) => {
+        setClass(classId);
+        updateMaterialData(classId);
+        updateLectureData(classId);
+    }
+
     const value = {
         userData, 
         classData,
@@ -132,6 +156,10 @@ export const DataProvider = ({ children }) => {
         createClass,
         createLecture,
         createMaterial,
+        lectureData,
+        updateLectureData,
+        materialData,
+        updateMaterialData
     }
 
     return (

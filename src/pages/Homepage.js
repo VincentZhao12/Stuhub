@@ -13,25 +13,33 @@ import './Homepage.scss';
 // const classStuff = classData[classId];
 const Homepage = () => {
     const { currentUser } = useAuth();
-    const { userData, updateUserData, classData, updateClassData, setCurrentClass, currentClass, createLecture } = useData();
+    const { userData, updateUserData, classData, updateClassData, setCurrentClass, currentClass, createLecture, lectureData, materialData } = useData();
     const [userClasses, setUserClasses] = useState([]);
     const [loading, setLoading] = useState(true);
     const [userTeachClasses, setUserTeachClasses] = useState([]);
 
     useEffect(() => {
-        let finishedUser = true;
-        let finishedClasses = true;
         // update user and class data, then setUserClasses to the user's classes to an array of objects using userData and classData
         // set the current class to the first class by default
-        updateClassData().then(() => {finishedClasses = false; setLoading(finishedClasses || finishedUser); console.log(classData)});
         if(currentUser) {
-            updateUserData().then(() => {finishedUser = false; setLoading(finishedClasses || finishedUser)});
-            setUserClasses(userData.studentClasses);
-            setUserTeachClasses(userData.teacherClasses);
-            if(userData.studentClasses && userData.studentClasses.length)
-                setCurrentClass(userData.studentClasses[0]);
-            else if(userData.teacherClasses && userData.teacherClasses.length)
-                setCurrentClass(userData.teacherClasses[0]);
+            let classLoading = true;
+            let userLoading = true;
+
+            updateClassData().then(() => {
+                classLoading = false;
+                setLoading(classLoading || userLoading);
+            })
+            
+            updateUserData().then((data) => {
+                userLoading = false;
+                setLoading(classLoading || userLoading);
+
+                const allClasses = data.studentClasses.concat(data.teacherClasses);
+
+                setCurrentClass(allClasses[0]);
+                setUserClasses(data.studentClasses);
+                setUserTeachClasses(data.teacherClasses);
+            })
         }
     }, []);
 
@@ -55,30 +63,25 @@ const Homepage = () => {
             </>)
             : <> {currentUser ? (
                 <>
-                    {userData.studentClasses && userData.studentClasses.length ? (
+                    {userClasses && userClasses.length ? (
                     <>
                         <Container  fluid className="page" style={{height: "80vh", alignItems: "center"}}>
                             <Row className="px-4">
                                 <Col className="col-6">
                                     <Row>
                                         <h2>Enrolled Classes</h2>
-                                        {userData.studentClasses.map((classId) => {
+                                        {userClasses.map((classId, index) => {
                                             let className = classData[classId];
-                                            console.log("classId",classId);
-                                            console.log(className);
-                                            console.log("classData",classData);
                                             return(
-                                                <Row>{className.name}</Row>
+                                                <Row key={index}>{className.name}</Row>
                                             )
-                                        })
-                                        }
+                                        })}
                                     </Row>
                                     <Row>
                                         <h2>Classes You Teach</h2>
                                     </Row>
                                 </Col>
                                 <Col className="col-10">
-
                                 </Col>
                             </Row>
                         </Container>

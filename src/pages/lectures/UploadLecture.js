@@ -1,17 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { Form } from 'react-bootstrap';
+import { Button, Card, Container, Form } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useData } from '../../contexts/DataContext';
 
 const UploadLecture = () => {
     const { currentUser } = useAuth();
-    const { createLecture, currentClass, classData, updateClassData } = useData();
+    const { createLecture, currentClass, userData, updateUserData } = useData();
     const history = useHistory();
     const [file, setFile] = useState();
 
     useEffect(() => {
         // update classData, then if the current user is not the creator of the class, return to homepage
+        if(!currentUser || !currentClass)
+            history.push("/");
+        else {
+            updateUserData().then((userData) => {
+                console.log(userData);
+                console.log(currentClass);
+                if(!userData.teacherClasses.includes(currentClass))
+                    history.push("/");
+            });
+        }
     }, []);
 
     const handleSubmit = (event) => {
@@ -20,6 +30,7 @@ const UploadLecture = () => {
         createLecture(
             event.target.elements["name"].value,
             event.target.elements["description"].value,
+            file
         );
     }
 
