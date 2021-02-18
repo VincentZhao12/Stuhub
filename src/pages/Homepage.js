@@ -7,7 +7,10 @@ import { Button, Container, Row, Col } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
+import Viewer from './Viewer';
+import '../UtilComponents/UnderlineText';
 import './Homepage.scss';
+import UnderlineText from '../UtilComponents/UnderlineText';
 
 // const classId = userData.studentClasses[0];
 // const classStuff = classData[classId];
@@ -65,8 +68,8 @@ const Homepage = () => {
                 <>
                     {userClasses && userClasses.length ? (
                     <>
-                        <Container  fluid className="page" style={{height: "80vh", alignItems: "center"}}>
-                            <Row className="px-4">
+                        <Container fluid className="page" style={{height: "80vh", alignItems: "center"}}>
+                            {/* <Row className="px-4">
                                 <Col className="col-6">
                                     <Row>
                                         <h2>Enrolled Classes</h2>
@@ -83,6 +86,11 @@ const Homepage = () => {
                                 </Col>
                                 <Col className="col-10">
                                 </Col>
+                            </Row> */}
+
+                            <Row className="ml-auto mr-auto align-items-center justify-content-center">
+                                <UnderlineText style={{marginRight: "25px"}}><h3 className="text mb-0">Enrolled</h3></UnderlineText>
+                                <UnderlineText style={{marginLeft: "25px"}}><h3 className="text mb-0">Teaching</h3></UnderlineText>
                             </Row>
                         </Container>
                     </>) 

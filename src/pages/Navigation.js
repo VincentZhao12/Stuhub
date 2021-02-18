@@ -22,8 +22,8 @@ const Navigation = () => {
                             </>
                         ) : 
                             <>
-                                <Nav.Link as={Link} to="/enroll-class" ><h3>Join Class</h3></Nav.Link>
-                                <Nav.Link as={Link} to="/create-class" ><h3>Create Class</h3></Nav.Link>
+                                <Nav.Link as={Link} to="/enroll-class" ><h3>Enroll</h3></Nav.Link>
+                                <Nav.Link as={Link} to="/create-class" ><h3>Teach</h3></Nav.Link>
                                 <Nav.Link as={Link} onClick={() => logout()} to="/" ><h3>Log Out</h3></Nav.Link>
                             </>}
                         
