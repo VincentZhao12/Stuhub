@@ -20,6 +20,7 @@ const Homepage = () => {
     const [userClasses, setUserClasses] = useState([]);
     const [loading, setLoading] = useState(true);
     const [userTeachClasses, setUserTeachClasses] = useState([]);
+    const [enrolledClasses, setEnrolledClasses] = useState(true);
 
     useEffect(() => {
         // update user and class data, then setUserClasses to the user's classes to an array of objects using userData and classData
@@ -89,8 +90,8 @@ const Homepage = () => {
                             </Row> */}
 
                             <Row className="ml-auto mr-auto align-items-center justify-content-center">
-                                <UnderlineText style={{marginRight: "25px"}}><h3 className="text mb-0">Enrolled</h3></UnderlineText>
-                                <UnderlineText style={{marginLeft: "25px"}}><h3 className="text mb-0">Teaching</h3></UnderlineText>
+                                <UnderlineText style={{marginRight: "25px"}} selected={enrolledClasses} onClick={() => setEnrolledClasses(true)}><h3 className="text mb-0">Enrolled</h3></UnderlineText>
+                                <UnderlineText style={{marginLeft: "25px"}} selected={!enrolledClasses} onClick={() => setEnrolledClasses(false)}><h3 className="text mb-0">Teaching</h3></UnderlineText>
                             </Row>
                         </Container>
                     </>) 

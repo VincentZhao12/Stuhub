@@ -9,14 +9,10 @@ const UnderlineText = (props) => {
         textDecorationThickness: "2px"
     };
 
-    const [style, setStyle] = useState({});
-
-    function handleClick(e) {
-        setStyle(selected);
-    }
+    console.log(props);
 
     return(
-        <a id="line" className="underline" style={{...style, ...props.style}} onMouseUp={handleClick}>{props.children}</a>
+        <a id="line" className="underline" style={props.selected ? {...selected, ...props.style} : props.style} onClick={() => props.onClick()}>{props.children}</a>
     );
 }
 
