@@ -40,6 +40,10 @@
     background-color: $secondary-color;
 }
 
+.btn-custom-secondary:disabled {
+    display:none;
+}
+
 .custom-primary {
     color: $primary-color;
 }
@@ -62,4 +66,10 @@
 
 .text {
     color: $text-color;
+}
+
+.card-text {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }

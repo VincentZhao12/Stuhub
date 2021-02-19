@@ -99,7 +99,7 @@ export const DataProvider = ({ children }) => {
 
         console.log(userData);
 
-        await db.collection("users").doc(currentUser.uid).update({
+        db.collection("users").doc(currentUser.uid).update({
             teacherClasses: [...userData.teacherClasses, doc.id]
         });
     }

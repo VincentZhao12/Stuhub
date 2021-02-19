@@ -1,4 +1,3 @@
-import { getAllByAltText } from '@testing-library/react';
 import React, { useState } from 'react';
 import './UnderlineText.scss';
 
@@ -8,11 +7,14 @@ const UnderlineText = (props) => {
         textDecorationColor: "#02C39A",
         textDecorationThickness: "2px"
     };
+    const [style, setStyle] = useState({});
 
-    console.log(props);
+    function handleClick() {
+        setStyle(selected);
+    }
 
     return(
-        <a id="line" className="underline" style={props.selected ? {...selected, ...props.style} : props.style} onClick={() => props.onClick()}>{props.children}</a>
+        <a id="line" className="underline" style={props.selected ? {...selected, ...props.style} : {...props.style, textDecoration: "none"}} onClick={props.onClick ? () => props.onClick() : handleClick}>{props.children}</a>
     );
 }
 

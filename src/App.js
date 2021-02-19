@@ -12,6 +12,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './scss/custom.scss';
 import CreateClass from './pages/classes/CreateClass';
 import UploadLecture from './pages/lectures/UploadLecture';
+import UploadMaterial from './pages/materials/UploadMaterial';
+import LectureViewer from './pages/lectures/LectureViewer';
+import MaterialViewer from './pages/materials/MaterialViewer';
 
 function App() {
   return (
@@ -28,6 +31,9 @@ function App() {
                 <Route exact path="/enroll-class" component={EnrollClass} />
                 <Route exact path="/create-class" component={CreateClass} />
                 <Route exact path="/upload-lecture" component={UploadLecture} />
+                <Route exact path="/upload-material" component={UploadMaterial} />
+                <Route exact path="/view-lecture/:lecture" component={LectureViewer} />
+                <Route exact path="/view-material/:material" component={MaterialViewer} />
               </Switch>
           </Router>
         </DataProvider>
