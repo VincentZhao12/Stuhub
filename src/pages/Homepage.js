@@ -3,14 +3,14 @@ import { useAuth } from '../contexts/AuthContext';
 import { useData } from '../contexts/DataContext';
 import LandingImg from "../assets/LandingImg";
 import EmptyClassesImg from "../assets/EmptyClassesImg";
-import { Button, Container, Row, Col } from "react-bootstrap";
+import { Button, Container, Row, Col, Card, ListGroup, OverlayTrigger, Popover } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
-import Viewer from './Viewer';
-import '../UtilComponents/UnderlineText';
 import './Homepage.scss';
 import UnderlineText from '../UtilComponents/UnderlineText';
+import ClassOverview from './classes/ClassOverview';
+import { List } from "react-bootstrap-icons";
 
 // const classId = userData.studentClasses[0];
 // const classStuff = classData[classId];
@@ -20,7 +20,7 @@ const Homepage = () => {
     const [userClasses, setUserClasses] = useState([]);
     const [loading, setLoading] = useState(true);
     const [userTeachClasses, setUserTeachClasses] = useState([]);
-    const [enrolledClasses, setEnrolledClasses] = useState(true);
+    const [enrolledClassesSelected, setEnrolledClassesSelected] = useState(true);
 
     useEffect(() => {
         // update user and class data, then setUserClasses to the user's classes to an array of objects using userData and classData
@@ -32,19 +32,31 @@ const Homepage = () => {
             updateClassData().then(() => {
                 classLoading = false;
                 setLoading(classLoading || userLoading);
+                console.log(classData);
             })
             
             updateUserData().then((data) => {
+                console.log(data)
+
                 userLoading = false;
                 setLoading(classLoading || userLoading);
 
                 const allClasses = data.studentClasses.concat(data.teacherClasses);
 
-                setCurrentClass(allClasses[0]);
+                if(!currentClass)
+                    setCurrentClass(allClasses[0]);
                 setUserClasses(data.studentClasses);
                 setUserTeachClasses(data.teacherClasses);
+
+                setEnrolledClassesSelected(data.studentClasses.length);
+
+                if(data.teacherClasses.includes(currentClass))
+                    setEnrolledClassesSelected(false);
             })
+        } else {
+            setLoading(false);
         }
+   
     }, []);
 
     return (
@@ -67,34 +79,120 @@ const Homepage = () => {
             </>)
             : <> {currentUser ? (
                 <>
-                    {userClasses && userClasses.length ? (
-                    <>
-                        <Container fluid className="page" style={{height: "80vh", alignItems: "center"}}>
-                            {/* <Row className="px-4">
-                                <Col className="col-6">
-                                    <Row>
-                                        <h2>Enrolled Classes</h2>
-                                        {userClasses.map((classId, index) => {
-                                            let className = classData[classId];
-                                            return(
-                                                <Row key={index}>{className.name}</Row>
-                                            )
-                                        })}
-                                    </Row>
-                                    <Row>
-                                        <h2>Classes You Teach</h2>
-                                    </Row>
-                                </Col>
-                                <Col className="col-10">
-                                </Col>
-                            </Row> */}
+                    {(userClasses && userClasses.length) || (userTeachClasses && userTeachClasses.length) ? (
+                    // <>
+                    //     <Container fluid className="page" style={{height: "80vh", alignItems: "center"}}>
 
-                            <Row className="ml-auto mr-auto align-items-center justify-content-center">
-                                <UnderlineText style={{marginRight: "25px"}} selected={enrolledClasses} onClick={() => setEnrolledClasses(true)}><h3 className="text mb-0">Enrolled</h3></UnderlineText>
-                                <UnderlineText style={{marginLeft: "25px"}} selected={!enrolledClasses} onClick={() => setEnrolledClasses(false)}><h3 className="text mb-0">Teaching</h3></UnderlineText>
+                    //         <Col>
+                    //             <Row className="">
+                    //                 <UnderlineText style={{marginLeft: "25px"}} selected={enrolledClassesSelected} onClick={() => setEnrolledClassesSelected(true)}><h3 className="text mb-0">Enrolled</h3></UnderlineText>
+                    //                 { userClasses.map((classId) => {
+                    //                     return (
+                    //                         <Row>
+                    //                             <UnderlineText style={{marginRight: "25px", marginLeft: "25px", color: "black"}} key={classId} selected={classId === currentClass} onClick={() => setCurrentClass(classId)}><h3 className="text mb-0">{classData[classId].name}</h3></UnderlineText>
+                    //                         </Row>
+                    //                         )
+                    //                 })}
+                                    
+                    //             </Row>
+                    //             <Row>
+                    //                 <UnderlineText style={{marginLeft: "25px"}} selected={!enrolledClassesSelected} onClick={() => setEnrolledClassesSelected(false)}><h3 className="text mb-0">Teaching</h3></UnderlineText>
+                    //                 {userTeachClasses.map(classId => {
+                    //                     return (
+                    //                         <Row>
+                    //                             <UnderlineText style={{marginRight: "25px", marginLeft: "25px", color: "black"}} key={classId} selected={classId === currentClass} onClick={() => setCurrentClass(classId)}><h3 className="text mb-0">{classData[classId].name}</h3></UnderlineText>
+                    //                         </Row>    
+                    //                         )
+                    //                 })}
+                    //             </Row>
+                    //         </Col>
+                    //         <Col>
+                    //             <ClassOverview teacherClass={userTeachClasses.includes(currentClass)}/>
+                    //         </Col>
+                    //     </Container>
+                    // </>
+                    
+                    <>
+                        <Container fluid className="page" style={{height: "100vh", alignItems: "center"}}>
+                            <Row className="px-3" style={{height:"100%"}}>
+                                <Col  className="col-3 d-none d-md-block d-lg-block">
+                                    <Row>
+                                        <p className="h2 mb-0">Enrolled</p>
+                                        <Container>
+                                            { userClasses.map((classId) => {
+                                                return (
+                                                    <Row>
+                                                        
+                                                        <UnderlineText style={{marginRight: "25px", marginLeft: "25px", color: "black"}} key={classId} selected={classId === currentClass} onClick={() => setCurrentClass(classId)}><div     className="text mb-0">{classData[classId].name}</div   ></UnderlineText>
+                                                    </Row>
+                                                    )
+                                            })}
+                                        </Container>
+                                        <h2 className="text mb-0">Teacher Classes</h2>
+                                        <Container>
+                                            {userTeachClasses.map(classId => {
+                                                return (
+                                                    <Row>
+                                                        <UnderlineText style={{marginRight: "25px", marginLeft: "25px", color: "black"}} key={classId} selected={classId === currentClass} onClick={() => setCurrentClass(classId)}><div     className="text mb-0">{classData[classId].name}</div   ></UnderlineText>
+                                                    </Row>    
+                                                    )
+                                            })}
+                                        </Container>
+                                    </Row>
+                                </Col>
+                                <Col  className="col-1 pr-5 px-0 d-md-none d-sm-block">
+                                        
+                                        <OverlayTrigger
+                                        trigger="click"
+                                        placement="bottom"
+                                        style={{width: "100%", height:"100%"}}
+                                        overlay={(
+                                                <Popover style={{width: "100%", height:"100%"}}>
+                                                <Popover.Content> 
+
+                                                    <Container fluid>
+                                                    <Col >
+                                                        <Row>
+                                                            <p className="h2 mb-0">Enrolled</p>
+                                                            <Container>
+                                                                { userClasses.map((classId) => {
+                                                                    return (
+                                                                        <Row>
+                                                                            <UnderlineText style={{marginRight: "25px", marginLeft: "25px", color: "black"}} key={classId} selected={classId === currentClass} onClick={() => setCurrentClass(classId)}><div     className="text mb-0">{classData[classId].name}</div   ></UnderlineText>
+                                                                        </Row>
+                                                                        )
+                                                                })}
+                                                            </Container>
+                                                            <h2 className="text mb-0">Teacher Classes</h2>
+                                                            <Container>
+                                                                {userTeachClasses.map(classId => {
+                                                                    return (
+                                                                        <Row>
+                                                                            <UnderlineText style={{marginRight: "25px", marginLeft: "25px", color: "black"}} key={classId} selected={classId === currentClass} onClick={() => setCurrentClass(classId)}><div     className="text mb-0">{classData[classId].name}</div   ></UnderlineText>
+                                                                        </Row>    
+                                                                        )
+                                                                })}
+                                                            </Container>
+                                                        </Row>
+                                                    </Col>
+                                                    </Container>
+                                                </Popover.Content>
+                                                </Popover>
+                                        )}
+                                            >
+                                           <Button size="sm"><List/></Button>
+                                        </OverlayTrigger>
+                                </Col>
+                                <Col className="ml-10">
+                                    <ClassOverview teacherClass={userTeachClasses.includes(currentClass)}/>
+                                </Col>
                             </Row>
                         </Container>
-                    </>) 
+                    </>
+                    
+                    
+                    )
+
                     :(
                         <Container fluid className="page" style={{height: "80vh", alignItems: "center"}}>
                             <Row className="justify-content-center align-items-center content" style={{height:"80%"}}>
