@@ -7,6 +7,7 @@ import HorizontalMenu from '../../UtilComponents/HorizontalMenu';
 const ClassOverview = (props) => {
     const { currentClass, classData, lectureData, teacherClasses, materialData } = useData();
     const [thisClassData, setThisClassData] = useState({});
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const history = useHistory();
 
     useEffect(() => {
@@ -36,7 +37,7 @@ const ClassOverview = (props) => {
                   {Object.keys(lectureData).length ? <HorizontalMenu
                       elements={Object.keys(lectureData).map((lecture) => {
                           return (
-                              <Card style={{marginLeft: "1%", marginRight: "1%", width: "10rem", height: "12rem"}} key={lecture}>
+                              <Card style={{marginLeft: "1%", marginRight: "1%", height: "12rem"}} key={lecture}>
                                   <Card.Body className="d-flex flex-column">
                                         <Card.Title>{lectureData[lecture].name}</Card.Title>
                                         <Card.Text>
@@ -59,7 +60,7 @@ const ClassOverview = (props) => {
                   {Object.keys(materialData).length ? <HorizontalMenu
                       elements={Object.keys(materialData).map((material) => {
                           return (
-                              <Card style={{marginLeft: "1%", marginRight: "1%", width: "10rem", height: "12rem"}} key={material}>
+                              <Card style={{marginLeft: "1%", marginRight: "1%", height: "12rem"}} key={material}>
                                   <Card.Body className="d-flex flex-column">
                                         <Card.Title>{materialData[material].name}</Card.Title>
                                         <Card.Text>

@@ -73,3 +73,11 @@
     white-space: nowrap;
     overflow: hidden;
 }
+
+iframe:focus {
+    outline: none;
+  }
+  
+  iframe[seamless] {
+    display: block;
+  }

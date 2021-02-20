@@ -141,8 +141,8 @@ const Homepage = () => {
                                     </Row>
                                 </Col>
                                 <Col  className="col-1 pr-5 px-0 d-md-none d-sm-block">
-                                        
-                                        <OverlayTrigger
+                                    
+                                    <OverlayTrigger
                                         trigger="click"
                                         placement="bottom"
                                         style={{width: "100%", height:"100%"}}

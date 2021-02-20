@@ -125,14 +125,15 @@ export const DataProvider = ({ children }) => {
         // upload a material and add the information about the material to firestorec
 
         const doc = db.collection("classes").doc(currentClass).collection("materials").doc();
-        const ref = storage.ref(currentClass + "/materials/" + doc.id);
+        const ref = storage.ref(currentClass + "/materials/" + doc.id + file.name.substring(file.name.lastIndexOf('.')));
         ref.put(file).then(() => {
             ref.getDownloadURL().then((url) => {
                 doc.set({
                     id:doc.id,
                     name: name,
                     description: description,
-                    url: url
+                    url: url,
+                    type: file.type
                 });
             })
         });
